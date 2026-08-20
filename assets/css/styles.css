@@ -226,3 +226,142 @@ footer{padding:22px clamp(22px,4vw,58px);border-top:1px solid #e3d9d2;color:#806
   .login-card{padding:28px 22px}
   .partner-logos img{height:44px}
 }
+/* =========================================================
+   AJUSTES VISUAIS - ZITÃO
+   ========================================================= */
+
+/* 1) Remover legendas auxiliares */
+.kpi-note,
+.type-panel > p {
+  display: none !important;
+}
+
+/* Ajuste de espaçamento dos cards sem legenda */
+.kpi {
+  min-height: 110px;
+  padding: 18px 20px;
+}
+
+.kpi-value {
+  margin: 14px 0 0;
+}
+
+/* 2) Corrigir corte dos badges/status no quadro de vencimentos */
+.dashboard-grid {
+  grid-template-columns: minmax(0, 1.9fr) minmax(320px, 0.8fr);
+  gap: 22px;
+}
+
+.critical-row {
+  grid-template-columns: minmax(300px, 1.7fr) 150px 190px 130px;
+  gap: 14px;
+  align-items: center;
+}
+
+.critical-row.header {
+  grid-template-columns: minmax(300px, 1.7fr) 150px 190px 130px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  min-height: 32px;
+  line-height: 1;
+}
+
+.count-pill {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+/* 3) Aumentar logos do escritório na tela de login */
+.partner-logos {
+  gap: 22px;
+  align-items: center;
+}
+
+.partner-logos img {
+  height: 76px;
+  width: auto;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 12px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  filter: none;
+  opacity: 1;
+}
+
+/* 4) Aumentar logos do escritório no cabeçalho */
+.topbar-main {
+  min-height: 96px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.header-partners {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 12px;
+}
+
+.header-partners img {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 12px;
+  opacity: 1;
+}
+
+/* Ajuste da área do usuário para não "apertar" */
+.user-area {
+  gap: 14px;
+}
+
+/* Ajuste da logo principal do cliente no header */
+.brand-wrap > img {
+  width: 210px;
+  height: 72px;
+  object-fit: contain;
+}
+
+/* 5) Melhorar proporção da marca na tela de login */
+.logo-client {
+  width: min(420px, 78%);
+}
+
+/* 6) Ajustes responsivos */
+@media (max-width: 1200px) {
+  .critical-row,
+  .critical-row.header {
+    grid-template-columns: minmax(240px, 1.5fr) 130px 170px 120px;
+  }
+
+  .header-partners img {
+    height: 40px;
+  }
+}
+
+@media (max-width: 820px) {
+  .header-partners {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .header-partners img {
+    height: 34px;
+    padding: 6px 10px;
+  }
+
+  .partner-logos img {
+    height: 58px;
+  }
+}
