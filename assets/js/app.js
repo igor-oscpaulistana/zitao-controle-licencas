@@ -1,4 +1,3 @@
-
 const CONFIG = window.APP_CONFIG || {};
 const DEMO_STORAGE_KEY = "zitao-licenses-demo-v2";
 const DEMO_LOGIN_KEY = "zitao-login-demo";
@@ -189,17 +188,39 @@ function openApp() {
 
 async function doLogin(username, password) {
   clearLoginError();
-  if (username !== (CONFIG.DEFAULT_LOGIN_USERNAME || "nicolly")) {
+
+  const typedUser = (username || "").trim().toLowerCase();
+  const allowedUser = (CONFIG.DEFAULT_LOGIN_USERNAME || "nicolly")
+    .trim()
+    .toLowerCase();
+
+  const allowedEmail = (
+    CONFIG.DEFAULT_LOGIN_EMAIL || `${allowedUser}@zitao.local`
+  )
+    .trim()
+    .toLowerCase();
+
+  if (typedUser !== allowedUser && typedUser !== allowedEmail) {
     throw new Error("Usuário inválido.");
   }
+
   if (backendMode === "supabase") {
     const { error } = await supabaseClient.auth.signInWithPassword({
-      email: CONFIG.DEFAULT_LOGIN_EMAIL || `${username}@zitao.local`,
+      email: allowedEmail,
       password
     });
-    if (error) throw error;
+
+    if (error) {
+      if (error.message?.toLowerCase().includes("invalid login credentials")) {
+        throw new Error("Usuário ou senha inválidos.");
+      }
+      throw error;
+    }
   } else {
-    if (password !== "123456") throw new Error("Senha inválida.");
+    if (password !== "123456") {
+      throw new Error("Senha inválida.");
+    }
+
     sessionStorage.setItem(DEMO_LOGIN_KEY, "true");
   }
 }
@@ -753,4 +774,4 @@ document.addEventListener("click", async (event) => {
   }
 });
 
-ensureSession();
+ensureSession()
