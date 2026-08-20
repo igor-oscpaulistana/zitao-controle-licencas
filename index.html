@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zitão | Controle de Licenças</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+<body>
+  <section id="loginView" class="login-shell">
+    <div class="login-brand">
+      <div class="logo-wall">
+        <img class="logo-client" src="./assets/img/logo-zitao.png" alt="Logo Zitão" />
+        <div class="logo-wall-divider"></div>
+        <div class="office-block">
+          <div class="office-label">Implantação, tecnologia e suporte</div>
+          <div class="partner-logos">
+            <img src="./assets/img/logo-paulistana.png" alt="Logo Paulistana" />
+            <img src="./assets/img/logo-souza-cardoso.png" alt="Logo Souza Cardoso" />
+          </div>
+        </div>
+      </div>
+      <h1>Controle de licenças</h1>
+      <div class="access-note">Sistema web com visão geral estratégica e módulo detalhado de licenças.</div>
+    </div>
+
+    <div class="login-side">
+      <form id="loginForm" class="login-card">
+        <div class="eyebrow">Acesso restrito</div>
+        <h2>Entrar no sistema</h2>
+        <p class="sub">Use as credenciais cadastradas para acessar o painel.</p>
+
+        <div class="field">
+          <label for="username">Usuário</label>
+          <input id="username" name="username" type="text" value="nicolly" autocomplete="username" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Senha</label>
+          <input id="password" name="password" type="password" placeholder="Digite sua senha" autocomplete="current-password" required />
+        </div>
+
+        <button type="submit" class="login-btn">Acessar</button>
+        <div id="loginError" class="login-error hidden"></div>
+        <div class="login-helper">Usuário padrão solicitado: <strong>nicolly</strong></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="appView" class="app hidden">
+    <header class="topbar">
+      <div class="topbar-main">
+        <div class="brand-wrap">
+          <img src="./assets/img/logo-zitao.png" alt="Logo Zitão" />
+          <div class="brand-divider"></div>
+          <div class="brand-title">
+            <strong>Controle de Licenças</strong>
+            Gestão centralizada de vencimentos, renovações e documentos.
+          </div>
+        </div>
+
+        <div class="user-area">
+          <div class="header-partners">
+            <img src="./assets/img/logo-paulistana.png" alt="Paulistana" />
+            <img src="./assets/img/logo-souza-cardoso.png" alt="Souza Cardoso" />
+          </div>
+          <div class="avatar">N</div>
+          <span>nicolly</span>
+          <button class="logout" id="logoutBtn" type="button">Sair</button>
+        </div>
+      </div>
+      <nav class="navrow">
+        <button class="navtab active" data-page="dashboard" type="button">Visão geral</button>
+        <button class="navtab" data-page="licenses" type="button">Licenças</button>
+      </nav>
+    </header>
+
+    <main>
+      <div id="modeBanner" class="alert-banner hidden"></div>
+
+      <section id="dashboardPage">
+        <div class="page-head">
+          <div>
+            <h1>Visão geral</h1>
+            <p>Indicadores estratégicos para acompanhamento de licenças ativas, a vencer e vencidas.</p>
+            <div class="asof" id="asOfText"></div>
+          </div>
+        </div>
+
+        <div class="filters">
+          <div class="filter-cell">
+            <label>Empresa</label>
+            <select id="companyFilter"></select>
+          </div>
+          <div class="filter-cell">
+            <label>Tipo de licença</label>
+            <select id="typeFilter"></select>
+          </div>
+          <button class="filter-reset" id="resetFilters" type="button">Limpar filtros</button>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi active">
+            <div class="kpi-top"><div class="kpi-label">Licenças ativas</div><div class="iconbox">✓</div></div>
+            <div class="kpi-value" id="kpiActive">0</div>
+            <div class="kpi-note">Vencimento acima de 30 dias</div>
+          </div>
+          <div class="kpi due">
+            <div class="kpi-top"><div class="kpi-label">A vencer</div><div class="iconbox">⏳</div></div>
+            <div class="kpi-value" id="kpiDue">0</div>
+            <div class="kpi-note">Próximos 30 dias</div>
+          </div>
+          <div class="kpi expired">
+            <div class="kpi-top"><div class="kpi-label">Vencidas</div><div class="iconbox">!</div></div>
+            <div class="kpi-value" id="kpiExpired">0</div>
+            <div class="kpi-note">Necessitam atenção imediata</div>
+          </div>
+          <div class="kpi total">
+            <div class="kpi-top"><div class="kpi-label">Vencidas + a vencer em 30 dias</div><div class="iconbox">▤</div></div>
+            <div class="kpi-value" id="kpiCritical">0</div>
+            <div class="kpi-note">Card prioritário consolidado</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Vencidas e a vencer nos próximos 30 dias</h3>
+              <span class="count-pill" id="criticalCount">0 licenças</span>
+            </div>
+            <div id="criticalList" class="critical-list"></div>
+          </div>
+
+          <div class="panel type-panel">
+            <h3>Distribuição por tipo</h3>
+            <p>Total considerando os filtros aplicados.</p>
+            <div id="typeDistribution"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="licensesPage" class="hidden">
+        <div class="page-head">
+          <div>
+            <h1>Licenças</h1>
+            <p>Relação completa, com detalhamento, inclusão, alteração, exclusão, inativação e anexo em PDF.</p>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button id="addLicenseBtn" class="primary-btn" type="button">+ Nova licença</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>CNPJ</th>
+                <th>Tipo de licença</th>
+                <th>Vencimento</th>
+                <th>Status</th>
+                <th>Situação</th>
+                <th>Responsável</th>
+                <th>Anexo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="licensesTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>Desenvolvido por OSC Paulistana</footer>
+  </section>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 id="modalTitle">Detalhes da licença</h2>
+          <p id="modalSubtitle">Visualização detalhada da licença selecionada.</p>
+        </div>
+        <button class="close-btn" id="closeModalBtn" type="button">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="detailsSection"></div>
+        <div id="editSection" class="hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/demo-data.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
