@@ -1,5 +1,5 @@
 window.APP_CONFIG = {
-  SUPABASE_URL: "https://vvvqkbuzkhlirpcdgev.supabase.co",
+  SUPABASE_URL: "https://vwvqbkbuzkhlirpcdgev.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_t11Zbkb3ysbvV0xvpmZnRg_wgpaBaCg",
   STORAGE_BUCKET: "licencas-pdf",
   DEFAULT_LOGIN_USERNAME: "nicolly",
